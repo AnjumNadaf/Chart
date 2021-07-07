@@ -1,0 +1,101 @@
+<mvc:View
+    controllerName="chart.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+	xmlns:viz="sap.viz.ui5.controls"
+	xmlns:vizData="sap.viz.ui5.data"
+	xmlns:vizFeeds="sap.viz.ui5.controls.common.feeds"
+	xmlns:form="sap.ui.layout.form" 
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:layout="sap.ui.layout"
+	xmlns:chart="sap.suite.ui.commons"
+>
+	
+		<App id="app">
+			<pages>
+				<Page id="page" title="{i18n>title}">
+				<content>
+				<Panel class="panelStyle" expandable="true" expanded="true" headerText="Settings" id='settingsPanel' width="auto">
+<content>
+<HBox class="sapUiSmallMarginBegin">
+<VBox class='settingsBox'>
+<Label design="Bold" text="{i18n>valueLabel}"></Label>
+<Switch change='onDataLabelChanged' state="true">
+<layoutData>
+<FlexItemData growFactor="1"/>
+</layoutData>
+</Switch>
+</VBox>
+<VBox class="sapUiMediumMarginBegin">
+<Label design="Bold" text="{i18n>sumValueLabel}"></Label>
+<Switch change='onSumLabelChanged' state="false">
+<layoutData>
+<FlexItemData growFactor="1"/>
+</layoutData>
+</Switch>
+</VBox>
+<VBox class="sapUiMediumMarginBegin">
+<Label design="Bold" text="{i18n>axisTitleLabel}"></Label>
+<Switch change='onAxisTitleChanged' state="false">
+<layoutData>
+<FlexItemData growFactor="1"/>
+</layoutData>
+</Switch>
+</VBox>
+<VBox class="sapUiMediumMarginBegin">
+<Label design="Bold" text="Switch"/>
+<Switch change="onChnageCharts" state="false">
+<layoutData>
+<FlexItemData growFactor="1"/>
+</layoutData>
+
+</Switch>
+</VBox>
+<VBox class="sapUiMediumMarginBegin">
+<Label design="Bold" text="{i18n>stackedType}"></Label>
+<RadioButtonGroup select="onTypeSelected">
+<buttons>
+<RadioButton text="{i18n>regular}"/>
+<RadioButton text="{i18n>percentage}"/>
+</buttons>
+</RadioButtonGroup>
+</VBox>
+</HBox>
+</content>
+</Panel>
+					<chart:ChartContainer autoAdjustHeight="true" id="chartContainer"  title="Reports">
+<chart:ChartContainerContent icon="sap-icon://horizontal-stacked-chart" title="Stacked_bar Chart">
+<chart:content>
+
+
+<viz:VizFrame height="" id="idVizFrame" uiConfig="{applicationSet:'fiori'}"
+									vizProperties="{plotArea: { drawingEffect: 'glossy'}, title:{ text:'Data analysis through Reports'},dataLabel:{visible:true,showTotal:true}}"
+									vizType="line">
+<viz:dataset>
+<vizData:FlattenedDataset data="{/expensesSet}">
+<vizData:dimensions>
+<vizData:DimensionDefinition name="Eyear" value="{Eyear}"/>
+</vizData:dimensions>
+<vizData:measures>
+<vizData:MeasureDefinition name="Expenses" value="{Expenses}"/>
+ <vizData:MeasureDefinition name="Emonth" value="{Emonth}"/>
+<!-- <vizData:MeasureDefinition name="SAP ABAP" value="{SAP ABAP}"/>
+<vizData:MeasureDefinition name="JAVA" value="{JAVA}"/> --> 
+</vizData:measures>
+</vizData:FlattenedDataset>
+</viz:dataset>
+<viz:feeds>
+<vizFeeds:FeedItem type="Measure" uid="valueAxis" values="Expenses,Emonth"/>
+<vizFeeds:FeedItem type="Dimension" uid="categoryAxis" values="Eyear"/>
+</viz:feeds>
+</viz:VizFrame>
+</chart:content>
+</chart:ChartContainerContent>
+</chart:ChartContainer>
+                 </content>
+				</Page>
+			</pages>
+		</App>
+	
+</mvc:View>
